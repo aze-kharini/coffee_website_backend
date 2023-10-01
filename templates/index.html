@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block main_heading %}
+<h1 class="title">Coffee Recommendations</h1>
+<p class="phrase">Look through coffee varieties, receive recommendations, rate varieties and much more. </p>
+{% endblock %}
+
+{% block main_content %}
+<main>
+    <section>
+        <h2 class="section_title">Catalog</h2>
+        <p class="section_introduction">Use our Catalog to lookup varieties based on criteria you choose. For example
+            the region it is commonly grown in or the typical flavors associated with that variety.</p>
+        <p class="link_p"><a href="{{ url_for('catalog') }}">Our Catalog</a></p>
+    </section>
+    {% if g.user %}
+    <section>
+        <h2 class="section_title">Coffee Recommendations Form</h2>
+        <p class="section_introduction">If you would like to have a variety recommended specifically to you, take this
+            test in the end you will
+            receive few varieties that best matchup with your preference.</p>
+        <p class="link_p"><a href="{{ url_for('recommendation_form') }}">Take the test!</a></p>
+    </section>
+    {% endif %}
+    {% if g.type == 'admin' %}
+    <section>
+        <h2 class="section_title">Users Lookup</h2>
+        <p class="section_introduction">To look up user profiles use this link and type in the user id.</p>
+        <p class="link_p"><a href="{{ url_for('users_search') }}">User Search</a></p>
+    </section>
+    {% endif %}
+    <h2 class="section_title">Popular Varieties</h2>
+    <p class="section_introduction">Here are the top 6 rated varieties chosen by the users of the website.</p>
+    <section class="catalog">
+        {% for variety in recommended_varieties %}
+        <a href="{{url_for('variety', var_id=variety.var_id)}}">
+            <section>
+                <h2>{{ variety.name }}</h2>
+                {% if variety.rating %}
+                <p>{{ variety.rating }}/5</p>
+                {% endif %}
+                <p>{{ variety.description }}</p>
+            </section>
+        </a>
+        {% endfor %}
+    </section>
+    <section>
+        <h2 class="section_title">Expert?</h2>
+        <p class="section_introduction">If you would like to contribute to this website with your knowledge, continue
+            reading.</p>
+        <p>When an admin changes your user type to expert, you will be granted extra options on our website. You will be
+            able to change the contents of a variety information, if you find that they need updating or you can even
+            add a completely new variety to expand our database.</p>
+        <p>If you are an expert on coffee and would like to contribute to this website with your knowledge, then look
+            into your profile page when you log in and simply click on the option 'become an expert'.</p>
+        <p>Did not register yet? Simply do it here: <a href="{{ url_for('register') }}">Register Now!</a></p>
+    </section>
+</main>
+{% endblock %}

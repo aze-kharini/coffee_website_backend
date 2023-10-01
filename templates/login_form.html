@@ -1,0 +1,29 @@
+{% extends 'base_compact.html' %}
+
+{% block main_heading %}
+<h1 class="title">Login</h1>
+{% endblock %}
+
+{% block main_content %}
+<main class="user">
+    <section class="user_form">
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            {{ form.user_id.label }}
+            {{ form.user_id() }}
+            {% for error in form.user_id.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.password.label }}
+            {{ form.password() }}
+            {% for error in form.password.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.submit() }}
+        </form>
+        <p class="link_p"><a href="{{ url_for('forgot_password') }}">Forgot Password?</a></p>
+    </section>
+</main>
+{% endblock %}

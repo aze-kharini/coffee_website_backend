@@ -1,0 +1,108 @@
+{% extends 'base_compact.html' %}
+
+{% block main_heading %}
+<h1 class="title">Alter Variety</h1>
+{% endblock %}
+
+{% block main_content %}
+<main>
+    <section class="variety_form">
+        <form action="" method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            {{ form.name.label }}
+            {{ form.name() }}
+            {% for error in form.name.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.description.label }}
+            {{ form.description() }}
+            {% for error in form.description.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.sweetness.label }}
+            {{ form.sweetness() }}
+            {% for error in form.sweetness.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.body.label }}
+            {{ form.body() }}
+            {% for error in form.body.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.flavor.label }}
+            {{ form.flavor() }}
+            {% for error in form.flavor.errors %}
+            {{ error }}
+            {% endfor %}
+            <section class="checkbox_form">
+                <h2>Regions</h2>
+                <fieldset>
+                    <legend>Delete regions where the variety is no longer grown.</legend>
+                    {% for error in form.delete_regions.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    <ul>
+                        {% for region in form.delete_regions %}
+                        <li>
+                            {{ region.label() }}
+                            {{ region() }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </fieldset>
+                <fieldset>
+                    <legend>Add regions where the variety is grown.</legend>
+                    {% for error in form.add_regions.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    <ul>
+                        {% for region in form.add_regions %}
+                        <li>
+                            {{ region.label() }}
+                            {{ region() }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </fieldset>
+            </section>
+            <section class="checkbox_form">
+                <h2>Flavors</h2>
+                <fieldset>
+                    <legend>Delete the flavors that you do not find characteristic for the variety.</legend>
+                    {% for error in form.delete_flavors.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    <ul>
+                        {% for flavor in form.delete_flavors %}
+                        <li>
+                            {{ flavor.label() }}
+                            {{ flavor() }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </fieldset>
+                <fieldset>
+                    <legend>Add the flavors that you find characteristic for the variety.</legend>
+                    {% for error in form.add_flavors.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    <ul>
+                        {% for flavor in form.add_flavors %}
+                        <li>
+                            {{ flavor.label() }}
+                            {{ flavor() }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </fieldset>
+            </section>
+            <br />
+            {{ form.submit() }}
+        </form>
+    </section>
+</main>
+{% endblock %}

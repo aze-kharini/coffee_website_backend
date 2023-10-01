@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block main_heading %}
+<h1 class="title">Catalog</h1>
+<p class="phrase">Use Various filters to help you find your perfect variety.</p>
+{% endblock %}
+
+
+{% block main_content %}
+<section class="catalog_form">
+    <form action="" method="POST" novalidate>
+        {{ form.hidden_tag() }}
+        <section>
+            {{ form.name_search.label }}
+            {{ form.name_search() }}
+        </section>
+        <section>
+            {{ form.rating.label }}
+            {{ form.rating() }}
+        </section>
+        <section class="region_form">
+            <h2>Regions</h2>
+            <fieldset>
+                <legend>Where would you like your coffee sourced?</legend>
+                {% for error in form.region_choices.errors %}
+                {{ error }}
+                {% endfor %}
+                <ul>
+                    {% for region in form.region_choices %}
+                    <li>
+                        {{ region.label() }}
+                        {{ region() }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </fieldset>
+        </section>
+        <section class="flavor_form">
+            <h2>Flavors</h2>
+            <fieldset>
+                <legend>Select all flavors you enjoy in your cup!</legend>
+                {% for error in form.flavor_choices.errors %}
+                {{ error }}
+                {% endfor %}
+                <ul>
+                    {% for flavor in form.flavor_choices %}
+                    <li>
+                        {{ flavor.label() }}
+                        {{ flavor() }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </fieldset>
+        </section>
+        <section class="submit_section">
+            {{ form.submit() }}
+        </section>
+    </form>
+</section>
+<main>
+    {% if found_varieties != None %}
+    <p>{{found_varieties}} variet{% if found_varieties == 1 %}y{%else%}ies{%endif%} found.</p>
+    {% endif %}
+    <section class="catalog">
+        {% for variety in varieties %}
+        <a href="{{url_for('variety', var_id=variety.var_id)}}">
+            <section>
+                <h2>{{ variety.name }}</h2>
+                {% if variety.rating %}
+                <p>{{ variety.rating }}/5</p>
+                {% endif %}
+                <p>{{ variety.description }}</p>
+            </section>
+        </a>
+        {% endfor %}
+        {% if g.type == 'admin' or g.type == 'expert' %}
+        <a href="{{ url_for('add_variety') }}">
+            <section>
+                <h2>Add Variety</h2>
+            </section>
+        </a>
+        {%endif%}
+    </section>
+</main>
+{% endblock %}

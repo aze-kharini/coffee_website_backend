@@ -1,0 +1,105 @@
+{% extends 'base_compact.html' %}
+
+{% block main_heading %}
+<h1 class="title">Add Variety</h1>
+{% endblock %}
+
+{% block main_content %}
+<main>
+    <section class=variety_form>
+        <form action="" method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            {{ form.name.label }}
+            {{ form.name() }}
+            {% for error in form.name.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.description.label }}
+            {{ form.description() }}
+            {% for error in form.description.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.rating.label }}
+            {{ form.rating() }}
+            {% for error in form.rating.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.sweetness.label }}
+            {{ form.sweetness() }}
+            {% for error in form.sweetness.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.body.label }}
+            {{ form.body() }}
+            {% for error in form.body.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.flavor.label }}
+            {{ form.flavor() }}
+            {% for error in form.flavor.errors %}
+            {{ error }}
+            {% endfor %}
+            <section class="checkbox_form">
+                <h2>Regions</h2>
+                <fieldset>
+                    <legend>Where is the coffee variety sourced?</legend>
+                    {% for error in form.region_choices.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    <ul>
+                        {% for region in form.region_choices %}
+                        <li>
+                            {{ region.label() }}
+                            {{ region() }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </fieldset>
+            </section>
+            <br />
+            <section class="checkbox_form">
+                <h2>Flavors</h2>
+                <fieldset>
+                    <legend>Select all flavors characteristic for the variety.</legend>
+                    {% for error in form.flavor_choices.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    <ul>
+                        {% for flavor in form.flavor_choices %}
+                        <li>
+                            {{ flavor.label() }}
+                            {{ flavor() }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </fieldset>
+            </section>
+            <br />
+            <section class="checkbox_form">
+                <h2>Genetic Parents</h2>
+                <fieldset>
+                    <legend>Select all varieties that are genetic parents of this variety.</legend>
+                    {% for error in form.parent_choices.errors %}
+                    {{ error }}
+                    {% endfor %}
+                    <ul>
+                        {% for parent in form.parent_choices %}
+                        <li>
+                            {{ parent.label() }}
+                            {{ parent() }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                </fieldset>
+            </section>
+            <br />
+            {{ form.submit() }}
+        </form>
+    </section>
+</main>
+{% endblock %}

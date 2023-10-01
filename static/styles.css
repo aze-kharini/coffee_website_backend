@@ -1,0 +1,520 @@
+/* ######################################################################## */
+/* Universal */
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html {
+    --base-color: #7C7229;
+    --background-color: #353620;
+    --main-color: #5d2421;
+    --secondary-color: #ad7f1f;
+    --font-color: white;
+    --shadow-color: black;
+    --alpha-color: #0e050475;
+}
+
+@viewport {
+    width: device-width;
+}
+
+/* Importing a font */
+@font-face {
+    font-family: Barlow;
+    src: url('Barlow/Barlow-Light.ttf');
+}
+
+html {
+    background-color: var(--base-color);
+    font-family: Barlow, sans-serif;
+    color: var(--font-color);
+    overflow-x: hidden;
+    hyphens: manual;
+}
+
+body {
+    margin: 0;
+}
+
+.wrapper {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    perspective: 10px;
+    scroll-behavior: smooth;
+}
+
+
+/* ######################################################################## */
+/* nav */
+
+nav {
+    padding: 1em;
+    /* Text shadow is set, because then it is more readable on colorful backgrounds like an image */
+    text-shadow: 0 0 5px var(--shadow-color);
+    align-items: baseline;
+    grid-row: 1;
+}
+
+.logo {
+    display: inline;
+    height: 2em;
+    padding-right: 0.5em;
+}
+
+nav h2 {
+    display: inline;
+}
+
+nav ul {
+    list-style-type: none;
+    display: flex;
+    /* Because of smaller screens, flex-wrap should be set to wrap */
+    flex-wrap: wrap;
+    padding-left: 0;
+}
+
+nav a:hover {
+    background-color: var(--alpha-color);
+    text-shadow: none;
+    border-radius: 4px;
+}
+
+nav a {
+    color: var(--font-color);
+    text-decoration: none;
+    /* large padding in order for the whole box to be clickable */
+    padding: 1em;
+}
+
+
+nav li {
+    padding: 1em;
+    font-size: 1.2em;
+    text-shadow: 0 0 5px var(--shadow-color);
+}
+
+@media screen and (min-width: 430px) {
+    nav {
+        padding: 2em;
+        display: flex;
+    }
+
+    nav ul {
+        padding-left: 5%;
+    }
+}
+
+/* rules that are related to the parallax affect */
+
+header {
+    position: relative; 
+    height: fit-content;
+    transform-style: preserve-3d;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.background {
+    z-index: -1;
+    transform: translateZ(-10px) scale(2.5);
+    position: absolute;
+}
+
+/* ######################################################################## */
+/* header */
+
+header {
+    color: var(--font-color);
+    text-shadow: 0 0 10px var(--shadow-color);
+    display: grid;
+    grid-template-rows: auto 1fr 1fr;
+}
+
+.title, .message_title {
+    font-size: 4em;
+    /* positioning */
+    margin-top: 10%;
+    margin-bottom: 5%;
+    grid-row: 2;
+    justify-self: center;
+}
+
+
+.phrase {
+    font-size: 1rem;
+    /* positioning */
+    margin-bottom: 30%;
+    padding: 0 2rem;
+    grid-row: 3;
+    justify-self: center;
+}
+
+
+.background {
+    /* height set to 100% makes it as tall as the viewport, which makes a nice effect and also results in a more stable layout */
+    height: 100%;
+    grid-row-start: 1;
+    grid-row-end: 4;
+    justify-self: center;
+}
+
+/* This rule applies to mobile phones positioned horizontally, this makes to header layout nicer on other devices and also more stable because of the height:100% */
+@media screen and (min-height: 700px) {
+    header {
+        height: 100%; /*Need to change this for more simple sites so the user does not have to scroll down all the time*/
+        grid-template-rows: auto 2fr 1fr;
+    }
+}
+
+/* ######################################################################## */
+/* Compact header */
+
+.compact nav{
+    padding: 0 1em;
+}
+
+/* rules that are related to the parallax affect */
+
+.compact header {
+    position: relative; 
+    height: 25rem; 
+    grid-template-rows: auto 1fr;
+    transform-style: preserve-3d;
+    z-index: -1;
+    overflow: hidden;
+}
+
+.compact .background {
+    z-index: -1;
+    transform: translateZ(-10px) scale(30);
+    position: absolute;
+}
+
+/* header */
+
+.compact header {
+    color: var(--font-color);
+    text-shadow: 0 0 10px var(--shadow-color);
+
+    display: grid;
+    grid-template-rows: auto 1fr;
+}
+
+.compact .title, .compact .message_title {
+    font-size: 4em;
+    grid-row: 2;
+    margin: 0;
+    justify-self: center;
+    justify-content: center;
+}
+
+
+.compact .background {
+    grid-row-start: 1;
+    grid-row-end: 2;
+    justify-self: center;
+}
+
+.compact .wrapper  {
+    display: grid;
+    min-height: 100vh; 
+    grid-template-rows: auto 1fr auto;
+}
+
+.compact .message_title {
+    padding: 0 2em;
+}
+
+/* resizing the fonts */
+
+@media screen and (min-width: 380px) {
+    .title, .compact .title, .compact .message_title {
+        font-size: 6em;
+    }
+
+    .phrase {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 550px) {
+    .title, .compact .title {
+        font-size: 9rem;
+    }
+
+    .phrase {
+        font-size: 2rem;
+    }
+}
+/* ######################################################################## */
+/* main */
+
+
+/* most images have a high resolution, this prevents them from overflowing the screen */
+main img {
+    max-width: 100%;
+}
+
+/* Styling the text and sections */
+main {
+    font-size: 1.2rem;
+    background-color: var(--base-color);
+    margin: 0;
+    color: var(--font-color);
+    padding: 0 10%;
+}
+
+main h2 {
+    font-size: 4rem;
+    margin-top: 4rem;
+    margin-bottom: 4rem;
+}
+
+main h3 {
+    font-size: 3rem;
+    border-left: var(--main-color) solid 3px;
+    padding-left: 8%;
+    margin-left: 2%;
+}
+
+main p, main ul {
+    width: 80%;
+    padding-left: 5%;
+    margin: 2em;
+
+}
+
+main a {
+    color: var(--main-color);
+    text-decoration: none;
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+    padding: 1em;
+    box-shadow: 0 2px 5px var(--main-color);
+    margin: 1em;
+}
+
+.link_p {
+    text-align: center;
+    margin: 0;
+    padding: 2em;
+    width: 100%;
+}
+
+
+main a:hover {
+    box-shadow: 0 5px 15px var(--main-color);
+}
+
+.section_introduction {
+    background-color: var(--alpha-color);
+    border-left: var(--secondary-color) solid 3px;
+    padding: 1rem;
+    width: 75%;
+}
+
+main>section {
+    border-bottom: var(--main-color) solid 2px;
+    padding: 8% 0;
+}
+
+main section {
+    padding: 2% 2%;
+}
+
+main h4 {
+    border-left: var(--main-color) 3px dotted;
+    padding-left: 4%;
+    margin-left: 2%;
+    font-size: 2rem;
+}
+
+
+/* taking care of the border on the last section on the page */
+
+section:nth-last-child(1) {
+    border-bottom: none;
+}
+
+/* Adjusting the font size based on the width */
+@media screen and (min-width: 550px) {
+    main {
+        font-size: 1.5rem;
+    }
+
+    main h2 {
+        font-size: 6rem;
+    }
+
+    main h3 {
+        font-size: 4rem;
+    }
+
+    main h4 {
+        font-size: 2.5rem;
+    }
+}
+
+.user {
+    margin: 0 auto;
+    min-width: 50%;
+}
+
+/* ######################################################################## */
+/* Catalog */
+label {
+    font-size: 2rem;
+}
+
+input {
+    height: 3em;
+}
+
+.catalog {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.flavor_form, .region_form {
+    width: 100%;
+    margin: 1em;
+}
+
+.catalog > a> section {
+    border-radius: 4px;
+    padding: 2em;
+    display: block;
+
+
+}
+
+.catalog> a {
+    display: block;
+    text-decoration: none;
+    color: var(--font-color);
+    width: 45%;
+    margin: 1em;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--base-color) 100%);    
+    box-shadow: 0 2px 5px var(--main-color);
+}
+
+.catalog_form form{
+    display: grid;  
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    padding: 2% 10%;
+}
+
+.catalog_form form .submit_section {
+    grid-column-start: 1;
+    grid-column-end: 3;
+}
+
+form {  
+    padding: 2em;
+}
+
+.checkbox_form input, .region_form input, .flavor_form input{
+    width: 10%; 
+}
+
+.checkbox_form li, .region_form li, .flavor_form li {
+    display: flexbox;
+    align-items: center;
+    padding: 0.25em;
+}
+
+
+
+.checkbox_form li:hover,.region_form li:hover, .flavor_form li:hover {
+    background-color: var(--alpha-color);
+}
+
+.checkbox_form label, .region_form label, .flavor_form label {
+    width: 10em;
+    display: inline-block;
+}
+
+
+input#submit {
+    width: 60%;
+    font-size: 1.5em;
+    margin-left: 20%;
+    margin-top: 2em;
+    background: linear-gradient(135deg, var(--secondary-color) 0%, var(--base-color) 100%);    
+    color: var(--font-color);
+}
+
+input#submit:hover {
+    background-color: var(--main-color);
+    animation: submit_hover .2s;
+    animation-fill-mode:forwards;
+    animation-timing-function: linear; 
+}
+
+
+@keyframes submit_hover {
+    0% {
+        background: linear-gradient(135deg, var(--secondary-color) 50%, var(--base-color) 100%);    
+    }
+
+    20% {
+        background: linear-gradient(135deg, var(--secondary-color) 50%, var(--base-color) 100%);    
+    }
+
+    40% {
+        background: linear-gradient(135deg,var(--main-color) 0%, var(--secondary-color) 50%);    
+    }
+
+    60% {
+        background: linear-gradient(135deg,var(--main-color) 0%, var(--secondary-color) 80%);    
+
+    }
+
+    80% {
+        background: linear-gradient(135deg, var(--main-color) 25%, var(--secondary-color) 100%);    
+
+    }
+
+    100% {
+        background: linear-gradient(135deg, var(--main-color) 50%, var(--secondary-color) 100%); 
+    }
+}
+
+.rating input#submit {
+    width: 40%;
+    font-size: 1em;
+    margin: 1em;
+}
+
+/* ######################################################################## */
+/* Info site */
+
+.information {
+    font-size: 2em;
+}
+
+/* ######################################################################## */
+/* footer */
+
+footer {
+    color: var(--font-color);
+    padding: 1em;
+    padding-top: 3rem;
+    columns: 3;
+    background: linear-gradient(0deg, var(--secondary-color) 80%, var(--base-color) 100%);
+}
+
+footer p {
+    text-align: center;
+    margin: auto;
+    break-inside: avoid;
+}
+
+footer a {
+    color: var(--main-color);
+}

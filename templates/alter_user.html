@@ -1,0 +1,34 @@
+{% extends 'base_compact.html' %}
+
+{% block main_heading %}
+<h1 class="title">Alter User</h1>
+{% endblock %}
+
+{% block main_content %}
+<main>
+    <section class="user_form">
+        <form action="" method="POST" novalidate>
+            {{ form.hidden_tag() }}
+            {{ form.user_id.label }}
+            {{ form.user_id() }}
+            {% for error in form.user_id.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.mail.label }}
+            {{ form.mail() }}
+            {% for error in form.mail.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{ form.type.label }}
+            {{ form.type() }}
+            {% for error in form.type.errors %}
+            {{ error }}
+            {% endfor %}
+            <br />
+            {{form.submit()}}
+        </form>
+    </section>
+</main>
+{% endblock %}

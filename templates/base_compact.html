@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Coffee Recommendation</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <link rel="icon" href=" {{ url_for('static', filename='coffee_bean_icon.ico')}}" />
+    <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+
+</head>
+
+<body class="compact">
+    <div class="wrapper">
+        <!--Div has to be included in order to achieve different scroll speeds for different elements, in this case the background image in the header-->
+        <!--I have learned about the parallax effect here: https://youtu.be/mxHoPYFsTuk -->
+        <header>
+            <img src="{{ url_for('static', filename='Biology_background.jpg') }}" class="background"
+                alt="Roasted coffee beans.">
+            <!--Not simply a background, because I want it to move at different speeds-->
+            <nav>
+                <img class="logo" src="{{ url_for('static', filename='coffee_bean_logo.png') }}" alt="">
+
+                <h2><a href="{{ url_for('index') }}">Coffee</a></h2>
+                <ul>
+                    {% if g.user %}
+                    <li>User ID: {{ g.user }}</li>
+                    <li><a href="{{ url_for('logout') }}">Log out</a></li>
+                    <li><a href="{{ url_for('profile', user_id = g.user ) }}">Profile</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('login') }}">Login</a></li>
+                    <li><a href="{{ url_for('register') }}">Register</a></li>
+
+                    {% endif %}
+                </ul>
+            </nav>
+            {% block main_heading %}
+
+            {% endblock %}
+        </header>
+
+        {% block main_content %}
+
+        {% endblock %}
+
+        <footer>
+            <p>&copy; Coffee Recommendations</p>
+            <p>
+                <small>
+                    Header Image: Photo by <a
+                        href="https://unsplash.com/@clintmckoy?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Clint
+                        McKoy</a> on <a
+                        href="https://unsplash.com/s/photos/coffee-plant?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText">Unsplash</a>
+
+                </small>
+            </p>
+            <p>
+                <small>
+                    Font taken from: <a href="http://www.onlinewebfonts.com">oNline Web Fonts</a>
+                </small>
+            </p>
+        </footer>
+    </div>
+</body>
+
+</html>

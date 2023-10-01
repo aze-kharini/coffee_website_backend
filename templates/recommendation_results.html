@@ -1,0 +1,30 @@
+{% extends 'base_compact.html' %}
+
+{% block main_heading %}
+<h1 class="title">Results</h1>
+{% endblock %}
+
+{% block main_content %}
+<main>
+    <section class="recommendation_results">
+        <h2>Flavors</h2>
+        <ul>
+            {% for flavor in user_obj.flavors %}
+            <li>{{flavor}}</li>
+            {% endfor %}
+        </ul>
+        <h2>Recommended Varieties</h2>
+        <section class="catalog">
+            {% for variety in recommended_varieties %}
+            <a href="{{url_for('variety', var_id=variety.var_id)}}">
+                <section>
+                    <h2>{{ variety.name }}</h2>
+                    <p>{{ variety.rating }}/5</p>
+                    <p>{{ variety.description }}</p>
+                </section>
+            </a>
+            {% endfor %}
+        </section>
+    </section>
+</main>
+{% endblock %}

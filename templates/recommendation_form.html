@@ -1,0 +1,65 @@
+{% extends 'base_compact.html' %}
+
+{% block main_heading %}
+<h1 class="title">Recommendation Form</h1>
+{% endblock %}
+
+{% block main_content %}
+<main>
+    <section class="recommendation_form">
+        {% if form.flavors %}
+        <form action="" method="post" novalidate>
+            {{form.hidden_tag()}}
+            <fieldset>
+                <legend>Select All Flavors you enjoy.</legend>
+                {% for error in form.flavors.errors %}
+                {{ error }}
+                {% endfor %}
+                <ul>
+                    {% for flavor in form.flavors %}
+                    <li>
+                        {{ flavor.label() }}
+                        {{ flavor() }}
+                    </li>
+                    {% endfor %}
+                </ul>
+            </fieldset>
+            {{form.submit()}}
+        </form>
+        {% else %}
+        <p>Fill in a number from -10 to 10, representing how much you agree to the question. 10 means that you
+            absolutely
+            agree and -10 that you completely disagree.</p>
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            {{ form.question_1.label }}
+            {{ form.question_1() }}
+            {% for error in form.question_1.errors %}
+            {{error}}
+            {% endfor %}
+            <br />
+            {{ form.question_2.label }}
+            {{ form.question_2() }}
+            {% for error in form.question_2.errors %}
+            {{error}}
+            {% endfor %}
+            <br />
+            {{ form.question_3.label }}
+            {{ form.question_3() }}
+            {% for error in form.question_3.errors %}
+            {{error}}
+            {% endfor %}
+            <br />
+            {{ form.question_4.label }}
+            {{ form.question_4() }}
+            {% for error in form.question_4.errors %}
+            {{error}}
+            {% endfor %}
+            <br />
+            {{ form.submit() }}
+            <br />
+        </form>
+        {% endif %}
+    </section>
+</main>
+{% endblock %}

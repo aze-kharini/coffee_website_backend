@@ -1,0 +1,53 @@
+{% extends 'base_compact.html' %}
+
+{% block main_heading %}
+<h1 class="title">Profile</h1>
+{% endblock %}
+
+{% block main_content %}
+<main>
+    <section>
+        <h2>User information</h2>
+        <ul>
+            <li>User ID: {{ profile_info.attributes()['user_id'] }}</li>
+            <li>E-Mail: {{ profile_info.attributes()['mail'] }}</li>
+            <li>Type of a user: {{ profile_info.attributes()['type'] }}</li>
+        </ul>
+        <p class="link_p"><a href="{{ url_for('change_profile', user_id=profile_info.attributes()['user_id']) }}">Change
+                Profile
+                Information</a></p>
+    </section>
+    {% if recommended_varieties %}
+    <section>
+        <h2>Recommended varieties</h2>
+        <section class="catalog">
+            {% for variety in recommended_varieties %}
+            <a href="{{url_for('variety', var_id=variety.var_id)}}">
+                <section>
+                    <h2>{{ variety.name }}</h2>
+                    <p>{{ variety.rating }}/5</p>
+                    <p>{{ variety.description }}</p>
+                </section>
+            </a>
+            {% endfor %}
+        </section>
+    </section>
+    {% endif %}
+    <section>
+        <h2>Expert User?</h2>
+        <p>If you believe, that your expertise would contribute to this website, then send us an e-mail telling us a
+            bit about yourself.</p>
+        <p>You will be granted extra options on this website. Those include changing the information about varieties and
+            adding new varieties. </p>
+        <p class="link_p"><a
+                href="mailto:coffeerecommendationsofficial@gmail.com">coffeerecommendationsofficial@gmail.com</a></p>
+    </section>
+    {% if g.type == 'admin' %}
+    <section>
+        <h2>Edit Profile</h2>
+        <p class="link_p"><a href="{{ url_for('delete_user', user_id=profile_info.user_id ) }}">Delete User</a></p>
+        <p class="link_p"><a href="{{ url_for('alter_user', user_id=profile_info.user_id) }}">Alter User</a></p>
+    </section>
+    {% endif %}
+</main>
+{% endblock %}

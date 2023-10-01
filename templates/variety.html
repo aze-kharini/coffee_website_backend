@@ -1,0 +1,96 @@
+{% extends 'base_compact.html' %}
+
+{% block main_heading %}
+<h1 class="title">{{ variety.attributes()['name'] }}</h1>
+{% endblock %}
+
+{% block main_content %}
+<main>
+    <section>
+        <h2>Description</h2>
+        <p>{{ variety.description }}</p>
+        {% if variety.rating %}
+            <section class="rating">
+                <h2>Rating</h2>
+                <p>{{ variety.rating }}/5 ({{ variety.num_of_ratings }})</p>
+                {% if voted == True and g.user%}
+                <p>Alredy Voted</p>
+                {% elif g.user%}
+                <form action="" method="post" novalidate>
+                    {{form.hidden_tag()}}
+                    {{form.rating.label}}
+                    {{form.rating()}}
+                    {% for error in form.rating.errors %}
+                    {{error}}
+                    {% endfor %}
+                    <br />
+                    {{form.submit()}}
+                </form>
+                {% else %}
+                    <p>You need to be logged in to rate this variety. <a href="{{ url_for('login') }}">Login here</a></p>
+                {% endif %}
+            </section>
+        {%endif%}
+        <h2>Flavors</h2>
+        <ul>
+            {% for flavor in variety.get_flavors() %}
+            <li>{{ flavor }}</li>
+            {% endfor %}
+        </ul>
+        {% if variety.get_regions() != [] %}
+            <h2>Regions</h2>
+            <ul>
+                {% for region in variety.get_regions() %}
+                <li>{{ region }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </section>
+    {% if g.user %}
+    {% if found_ancestors > 0 %}     
+    <h2>Ancestors</h2>
+    <section class="catalog">
+        {% for variety in ancestors%}
+        <a href="{{url_for('variety', var_id=variety.var_id)}}">
+            <section>
+                <h2>{{ variety.name }}</h2>
+                {% if variety.rating %}
+                <p>{{ variety.rating }}/5</p>
+                {% endif %}
+                <p>{{ variety.description }}</p>
+            </section>
+        </a>
+        {% endfor %}
+    </section>
+    {% endif %}
+    {% if found_descendants > 0 %}
+    <h2>Descendants</h2>
+    <section class="catalog">
+        {% for variety in descendants %}
+        <a href="{{url_for('variety', var_id=variety.var_id)}}">
+            <section>
+                <h2>{{ variety.name }}</h2>
+                {% if variety.rating %}
+                <p>{{ variety.rating }}/5</p>
+                {% endif %}
+                <p>{{ variety.description }}</p>
+            </section>
+        </a>
+        {% endfor %}
+    </section>
+    {%endif%}
+    {% else %}
+    <p>Please login to view ancestors and descendants of this variety.</p>
+    {% endif %}
+
+    {% if g.type == 'admin' or g.type == 'expert' %}
+    <section>
+        <h2>Edit Variety</h2>
+        {% if g.type == 'admin' %}
+        <p class="link_p"><a href="{{ url_for('delete_variety', var_id=variety.var_id ) }}">Delete Variety</a></p>
+        {% endif %}
+        <p class="link_p"><a href="{{ url_for('alter_variety', var_id=variety.var_id) }}">Alter Variety</a></p>
+    </section>
+    {% endif %}
+</main>
+{% endblock %}
