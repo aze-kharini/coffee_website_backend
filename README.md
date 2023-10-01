@@ -11,6 +11,7 @@
 - Rate varieties (Using cookies)
 - Take a questionaiere that recommends a variety for you
 - Save favorite varieties
+- Change their account information, including the password
 
 ### Coffee Expert
 - Add varieties
@@ -21,3 +22,10 @@
 - View users profiles
 - Add users
 - Change a regular customer into a coffee expert based on an email
+
+## How to Run
+This website uses Flask and a lot of other libraries, which might need to be imported
+To open this website locally, you need to download the files, navigate to the directory containing `app.py` and type the command `flask run`
+
+## To-Do
+- [ ] Deploy this website on a server`
